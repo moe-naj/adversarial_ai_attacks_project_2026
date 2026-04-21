@@ -35,4 +35,7 @@ Both models are evaluated and deployed behind a lightweight REST service that ac
 
 **This service is the main attack target for all adversarial work in the projects that follow.**
 
+## Project 2 credits
+- [Adversial AI Attacks Packt Publishing](https://github.com/PacktPublishing/Adversarial-AI---Attacks-Mitigations-and-Defense-Strategies)
+
 ---
