@@ -1,3 +1,5 @@
+![AI Adversarial Attacks](readme_banner.png)
+
 # Adversarial AI — Attacks, Mitigations & Defense Strategies
 
 This repository documents hands-on work exploring how machine learning models can be attacked, manipulated, and defended against. Each chapter is a self-contained project building toward a full adversarial attack and defense pipeline.
@@ -31,6 +33,6 @@ Each conv block: `Conv2D → BatchNorm → Conv2D → BatchNorm → MaxPool → 
 
 Both models are evaluated and deployed behind a lightweight REST service that accepts prediction requests. A Python client is used to test the service against random images, confirming end-to-end functionality.
 
-**This service is the main attack target for all adversarial work in the chapters that follow.**
+**This service is the main attack target for all adversarial work in the projects that follow.**
 
 ---
