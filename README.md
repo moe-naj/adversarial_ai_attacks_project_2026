@@ -14,7 +14,7 @@ All work in this repository is intended **strictly for research and educational 
 
 ## Project 1: Building a Target: ML Environment & Image Classifier Service
 
-Project code and files: [Project 2](./project-1-basic-ml-service)
+Project code and files: [Project 1](./project-1-basic-ml-service)
 
 The goal of this project is to build and deploy a working ML service that will serve as the primary attack target in subsequent projects.
 
