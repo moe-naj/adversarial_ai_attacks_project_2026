@@ -12,7 +12,7 @@ All work in this repository is intended **strictly for research and educational 
 
 ---
 
-## Project 2 — Building a Target: ML Environment & Image Classifier Service
+## Project 2: Building a Target: ML Environment & Image Classifier Service
 
 Project code and files: [Project 2](./ch2)
 
