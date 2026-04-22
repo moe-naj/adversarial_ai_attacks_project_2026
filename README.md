@@ -1,6 +1,6 @@
 ![AI Adversarial Attacks](readme_banner.png)
 
-# Adversarial AI — Attacks, Mitigations & Defense Strategies
+# Adversarial AI: Attacks, Mitigations & Defense Strategies
 
 This repository documents hands-on work exploring how machine learning models can be attacked, manipulated, and defended against. Each chapter is a self-contained project building toward a full adversarial attack and defense pipeline.
 
