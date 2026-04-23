@@ -42,6 +42,9 @@ Both models are evaluated and deployed behind a lightweight REST service that ac
 
 ## Project 2: Securing Our Basic ML Service
 
+![Project 2 Microservice Architecture](project-2-securing-basic-ml-model/project-2-architecture.PNG)
+Project 2 Microservice Architecture
+
 ### Threat Model
 Our threat model assumes the following starting from the outer layer until we reach the encrypted ML model:
 - Layer 1: VM/host network/perimeter    → assume compromised
