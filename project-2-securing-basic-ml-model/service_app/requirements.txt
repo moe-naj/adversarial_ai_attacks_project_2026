@@ -1,0 +1,13 @@
+Flask
+requests
+Pillow
+numpy
+tensorflow==2.15.*
+python-dotenv
+cryptography
+Flask-OAuthlib==0.9.6
+matplotlib
+scikit-learn==1.1.2
+pandas
+art
+Flask-OAuthlib==0.9.6

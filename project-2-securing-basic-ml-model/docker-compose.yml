@@ -1,0 +1,39 @@
+version: '3'
+services:
+  proxy:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - service_app
+  service_app:
+    image: service_app
+    environment:
+      - FLASK_API_URL=http://service_api:5000
+      - API_KEY=testkey
+      - GITHUB_CLIENT_ID=Ov23liLuUbmQPXBhqppm
+      - GITHUB_CLIENT_SECRET=5c4d1aaae134051eb61aefd97805ffd7298e647c
+    build: ./service_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ssl:/ssl
+    depends_on:
+      - service_api
+  service_api:
+    image: service_api
+    build: ./service_api
+    environment:
+      - MODEL_PATH=/deployed_models/simple-cifar10.h5.enc
+      - KEY_PATH=/keys/service.key
+      - MODEL_HASH=eeda00b3c9169731001701a0db4647f5cb0e46a46a9ed4d415a029e5be77dc46
+      - API_KEY=testkey
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./keys:/keys
+      - ./api/deployed_models:/deployed_models
