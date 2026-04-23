@@ -37,7 +37,16 @@ Both models are evaluated and deployed behind a lightweight REST service that ac
 
 **This service is the main attack target for all adversarial work in the projects that follow.**
 
-## Project 1 credits
+### Project 1 credits
 - [Adversial AI Attacks Packt Publishing](https://github.com/PacktPublishing/Adversarial-AI---Attacks-Mitigations-and-Defense-Strategies)
 
----
+## Project 2: Securing Our Basic ML Service
+
+### Threat Model
+Our threat model assumes the following starting from the outer layer until we reach the encrypted ML model:
+- Layer 1: VM/host network/perimeter    → assume compromised
+- Layer 2: ufw firewall on host         → assume compromised
+- Layer 3: Docker network isolation     → assume compromised
+- Layer 4: NGINX rules                  → assume compromised
+- Layer 5: API-KEY authentication       → assume compromised
+- Layer 6: model encryption (enc)       → last line of defense
