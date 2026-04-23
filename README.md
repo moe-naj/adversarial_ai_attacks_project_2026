@@ -50,3 +50,8 @@ Our threat model assumes the following starting from the outer layer until we re
 - Layer 4: NGINX rules                  → assume compromised
 - Layer 5: API-KEY authentication       → assume compromised
 - Layer 6: model encryption (enc)       → last line of defense
+
+Our second lab is simulating a realistic attack surface where:
+- The model itself is a valuable asset worth stealing
+- Adversarial inputs could be used to manipulate predictions
+- Each layer slows down or stops an attacker even after partial compromise
