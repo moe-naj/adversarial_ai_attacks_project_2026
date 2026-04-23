@@ -8,7 +8,7 @@ This repository documents hands-on work exploring how machine learning models ca
 
 ## ⚠️ Disclaimer
 
-All work in this repository is intended **strictly for research and educational purposes**. Techniques, code, and exploits are documented to build awareness of AI security vulnerabilities. Nothing here should be used to attack, manipulate, or compromise systems without explicit authorisation. The author assumes no responsibility for misuse of any material in this repository.
+All work in this repository is intended **strictly for research and educational purposes**. Techniques, code, scripts and exploits are documented to build awareness of AI security vulnerabilities. Nothing here should be used to attack, manipulate, or compromise systems without explicit authorisation. The author assumes no responsibility for misuse of any material in this repository.
 
 ---
 
