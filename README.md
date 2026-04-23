@@ -60,3 +60,36 @@ Our second lab is simulating a realistic attack surface where:
 - We deployed a secured ML inference service using Docker Compose, consisting of three containers: an NGINX proxy handling HTTPS/TLS termination, a Flask web app (`service_app`), and a Flask ML inference API (`service_api`) serving a CIFAR-10 image classification model. The architecture follows a microservices pattern where the proxy is the only public-facing component, routing traffic to the web app, which in turn communicates internally with the API. The ML model is encrypted at rest using AES-256-GCM and only decrypted in memory at runtime, covering all three data protection states: at rest, in transit, and in use.
 - We hit several bugs in the book's original GitHub code that required fixing. The most persistent was a typo in `docker-compose.yml` where the encryption key volume was written as .keys:/keys instead of ./keys:/keys, causing the container to silently fail to mount the keys folder. This resulted in a cascade of confusing errors around key loading and hash mismatches that took multiple debugging cycles to isolate. Additionally, flask_oauthlib==0.9.5 in service_app was incompatible with the current version of Werkzeug, requiring a pin of `Werkzeug==2.0.3`. The model's encryption key was also missing from the repo (correctly excluded via `.gitignore`), requiring us to generate a new key, re-encrypt the model via the deployment notebook, and update the `MODEL_HASH` in `docker-compose.yml` accordingly.
 - Key lessons learned so far: always run `git fetch` before pushing, pin all dependencies in `requirements.txt` using `pip freeze` while everything is working, never bake large model files into Docker images (use `.dockerignore` and volume mounts instead), and pre-flight scripts like `create_certs.sh` and key generation must run before docker compose up. The errors themselves were more educational than a clean run would have been, and each one exposed a real-world security or deployment concept that maps directly to production ML systems.
+
+### Security Hardening Controls for the Secured ML Service - A Summary 
+#### Network & Transport
+
+- HTTPS/TLS 1.2+ enforced via NGINX proxy (self-signed cert for lab)
+- Ports 5000 and 8000 blocked externally — only 80/443 exposed
+- `service_api` fully isolated behind proxy — no direct public access
+- Rate limiting on all requests via NGINX (limit_req)
+
+#### Authentication & Authorization
+
+- GitHub OAuth — user identity via external IdP
+- API key (`x-api-key`) — inter-container service-to-service auth
+- All routes protected — unauthenticated requests return 401
+
+#### Data Protection
+
+- Model encrypted at rest — AES-256-GCM
+- Model decrypted in memory only — never written to disk unencrypted
+- HTTPS encrypts data in transit
+- Model integrity verified via SHA-256 hash on every container start
+
+#### Infrastructure
+
+- Microservices isolation — 3 separate containers, separate blast radius
+- Secrets via environment variables — not hardcoded
+- Docker network isolation — internal services not reachable externally
+- `.dockerignore` model files not baked into images
+
+### Monitoring
+
+- Heartbeat endpoints (/status/app, /status/api) for health checks
+- API key logging — print(key, API_KEY) on every request
