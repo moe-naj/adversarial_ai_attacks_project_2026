@@ -96,3 +96,17 @@ Our second lab is simulating a realistic attack surface where:
 
 - Heartbeat endpoints (/status/app, /status/api) for health checks
 - API key logging — print(key, API_KEY) on every request
+
+### Debugging OAuth & Container Configuration
+- Flask requires a SECRET_KEY to sign session cookies — without it, OAuth sessions fail
+- `os.environ.get()` reads Linux env vars injected by Docker via the environment: block in docker-compose.yml
+- Always set `app.secret_key` after `app = Flask(__name__)` — order matters
+- Env var names must be consistent across all files — `auth.py` and `app.py` were using different names for the same secret
+- Nginx strips original request headers when proxying — use `proxy_set_header` to forward `Host`, `X-Forwarded-Proto` etc.
+- `ProxyFix` middleware tells Flask to trust forwarded headers from nginx to generate correct URLs
+- GitHub OAuth callback URL must exactly match what's registered in the GitHub OAuth app settings
+- The OAuth code in the callback URL is one-time use and expires quickly
+- Direct edits inside containers are lost on restart — always persist fixes to source files
+- `--no-cache` on docker build forces full reinstall of all dependencies — avoid for large images like `TensorFlow`
+- A shim is a compatibility layer that translates old API calls to new equivalents — `werkzeug_patch.py` bridges `flask_oauthlib` to newer `werkzeug`
+- VirtualBox NAT throttles network speed — switch to Bridged or virtio-net adapter for better performance
