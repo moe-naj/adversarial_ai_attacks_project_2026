@@ -13,6 +13,8 @@ services:
   service_app:
     image: service_app
     environment:
+      - FLASK_SECRET_KEY=supersecretlabkey
+      - SECRET_KEY=supersecretlabkey
       - FLASK_API_URL=http://service_api:5000
       - API_KEY=testkey
       - GITHUB_CLIENT_ID=Ov23liLuUbmQPXBhqppm

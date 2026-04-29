@@ -12,6 +12,10 @@ FLASK_API_URL = os.environ.get('FLASK_API_URL', 'http://localhost:5000')
 
 UPLOAD_FOLDER = 'uploads'
 app = Flask(__name__)
+from werkzeug.middleware.proxy_fix import ProxyFix
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+# flask secret key to protect session cookies, defined in docker-compose
+app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

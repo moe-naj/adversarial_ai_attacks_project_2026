@@ -11,7 +11,7 @@ api_key = os.getenv('API_KEY')
 # Function to create OAuth object and GitHub remote app
 def create_github_oauth(app):
     oauth = OAuth(app)
-    app.secret_key = os.getenv('SECRET_KEY')
+    app.secret_key = os.getenv('FLASK_SECRET_KEY')
     github = oauth.remote_app(
         'github',
         consumer_key=os.getenv('GITHUB_CLIENT_ID'),
